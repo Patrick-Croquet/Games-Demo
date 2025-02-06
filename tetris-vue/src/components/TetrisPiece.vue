@@ -1,5 +1,5 @@
 <template>
-  <div class="tetris-piece" :style="pieceStyle">
+  <div class="tetris-piece" :style="pieceStyle" :data-type="type">
     <div v-for="(row, rowIndex) in shape" :key="rowIndex" class="piece-row">
       <div v-for="(cell, cellIndex) in row" 
            :key="cellIndex" 
@@ -96,13 +96,15 @@ export default {
       return COLORS[this.type] || '#000000';
     },
     pieceStyle() {
-      return {
+      const style = {
         position: 'absolute',
         left: `${this.x * 30}px`,
         top: `${this.y * 30}px`,
         margin: 0,
         padding: 0
       };
+
+      return style;
     }
   },
   methods: {

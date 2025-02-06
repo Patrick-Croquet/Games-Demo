@@ -5,14 +5,28 @@
       <div class="level">Niveau: {{ level }}</div>
       <div class="next-piece">
         <h3>Prochaine pièce:</h3>
-        <tetris-piece
-          :type="nextPieceType"
-          :x="0"
-          :y="0"
-        />
+        <div class="next-piece-container">
+          <tetris-piece
+            :type="nextPieceType"
+            :x="0"
+            :y="0"
+            :rotation="0"
+            class="preview-piece"
+          />
+        </div>
       </div>
       <div class="controls">
         <button @click="togglePause">{{ isPaused ? 'Reprendre' : 'Pause' }}</button>
+        <div class="controls-info">
+          <h3>Contrôles:</h3>
+          <ul>
+            <li>← → : Déplacer</li>
+            <li>↑ : Rotation</li>
+            <li>↓ : Descente rapide</li>
+            <li>Espace : Chute instantanée</li>
+            <li>P : Pause</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="tetris-grid">
@@ -25,7 +39,7 @@
           v-for="(cell, cellIndex) in row"
           :key="cellIndex"
           class="tetris-cell"
-          :style="getCellStyle(cell)"
+            :style="getCellStyle(cell)"
         ></div>
       </div>
       <tetris-piece
@@ -407,6 +421,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 200px;
 }
 
 .tetris-grid {
@@ -436,14 +451,48 @@ export default {
 }
 
 .next-piece {
-  border: 2px solid #000;
+  border: 1px solid #ddd;
   padding: 1rem;
   background: #f5f5f5;
-  width: 150px;
-  height: 150px;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.next-piece h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+}
+
+.next-piece-container {
+  position: relative;
+  width: 100%;
+  height: 120px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.preview-piece {
+  position: absolute !important;
+  transform: translate(-50%, -50%) !important;
+  left: 50% !important;
+  top: 50% !important;
+}
+
+/* Ajustement spécifique pour la pièce I qui est plus large */
+.preview-piece[data-type="I"] {
+  transform: translate(-50%, -50%) translateY(15px) !important;
+}
+
+/* Ajustement spécifique pour la pièce O qui est plus petite */
+.preview-piece[data-type="O"] {
+  transform: translate(-50%, -50%) scale(1.2) !important;
 }
 
 .game-over {
@@ -473,10 +522,18 @@ export default {
 .score, .level {
   font-size: 1.5rem;
   font-weight: bold;
+  padding: 0.5rem;
+  background: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #ddd;
 }
 
 .controls {
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 }
 
 .controls button {
@@ -488,6 +545,32 @@ export default {
   border: none;
   border-radius: 4px;
   width: 100%;
+}
+
+.controls-info {
+  text-align: left;
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.controls-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.controls-info ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.controls-info li {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #34495e;
 }
 
 .pause-screen {

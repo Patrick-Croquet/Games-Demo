@@ -6,15 +6,6 @@
     <main>
       <tetris-grid />
     </main>
-    <footer>
-      <p>Contrôles:</p>
-      <ul>
-        <li>← → : Déplacer la pièce</li>
-        <li>↑ : Rotation</li>
-        <li>↓ : Descente rapide</li>
-        <li>Espace : Chute instantanée</li>
-      </ul>
-    </footer>
   </div>
 </template>
 
@@ -51,19 +42,5 @@ header {
 h1 {
   color: #34495e;
   font-size: 2.5rem;
-}
-
-footer {
-  margin-top: 2rem;
-  font-size: 1.1rem;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin: 0.5rem 0;
 }
 </style>
